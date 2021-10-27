@@ -36,7 +36,7 @@ describe("Bitso Challenge Test Scenario 01", () => {
         })
     })
 
-    it.only("Validate deposit error message displayed for ETH", () => {        
+    it("Validate deposit error message displayed for ETH", () => {        
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('ETH').then(() => {
@@ -45,7 +45,7 @@ describe("Bitso Challenge Test Scenario 01", () => {
         })
     })
  
-    it.only("Validate deposit error message displayed for BCH", () => {        
+    it("Validate deposit error message displayed for BCH", () => {        
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('BCH').then(() => {

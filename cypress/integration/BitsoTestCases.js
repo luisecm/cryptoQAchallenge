@@ -31,25 +31,25 @@ describe("Bitso Challenge Test Scenario 01", () => {
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('BTC').then(() => {
-                cy.validateDepositOnCrypto()      
+                cy.validateDepositOnCrypto('BTC')
             })
         })
     })
 
-    it("Validate deposit error message displayed for ETH", () => {        
+    it.only("Validate deposit error message displayed for ETH", () => {        
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('ETH').then(() => {
-                cy.validateDepositOnCrypto()      
+                cy.validateDepositOnCrypto('ETH')      
             })
         })
     })
  
-    it("Validate deposit error message displayed for BCH", () => {        
+    it.only("Validate deposit error message displayed for BCH", () => {        
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('BCH').then(() => {
-                cy.validateDepositOnCrypto()      
+                cy.validateDepositOnCrypto('BCH')      
             })
         })
     })
@@ -58,7 +58,7 @@ describe("Bitso Challenge Test Scenario 01", () => {
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('DAI').then(() => {
-                cy.validateDepositOnCrypto()      
+                cy.validateDepositOnCrypto('DAI')      
             })
         })
     })
@@ -67,7 +67,7 @@ describe("Bitso Challenge Test Scenario 01", () => {
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('XRP').then(() => {
-                cy.validateDepositOnCrypto()      
+                cy.validateDepositOnCrypto('XRP')      
             })
         })
     })
@@ -76,7 +76,7 @@ describe("Bitso Challenge Test Scenario 01", () => {
         //First we wait for wallet page to be displayed, pass the crypto to validate and finally ensure error message is displayed
         cy.waitForWalletToLoad().then(() => {
             cy.clickOnCrypto('MANA').then(() => {
-                cy.validateDepositOnCrypto()      
+                cy.validateDepositOnCrypto('MANA')      
             })
         })
     })

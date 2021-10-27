@@ -7,9 +7,6 @@ Cypress.Commands.add("loginToPage", (user, password) => {
     cy.get('#password').should('be.visible').type(password)
     cy.contains('Got it').should('be.visible').click()
     cy.get('form').children().contains('Log in').should('be.visible').click()
-    cy.intercept('/api/v3/account_status').as('accountStatus')
-    cy.intercept('/api/v3/settings').as('settings')
-    cy.wait(['@accountStatus', '@settings'])
 })
 
 // Commands for first test cases
@@ -36,26 +33,31 @@ Cypress.Commands.add("clickOnCrypto", (coin) => {
     }
 })
 
-//Command to validate deposit is not available and message displayed in modal and finally close modal - This works only for BTC When sometimes BTC is displaying a different modal from other coins
-Cypress.Commands.add("validateDepositOnBTC", () => {
-    cy.get('.styles__Value-wdzexi-0').should('contain', 'BTC').then(() => {
-        cy.get('.bdGJMw > .Container__StyledContainer-sc-1nmtyg4-0 > :nth-child(1)').should('be.visible').click()
-    })
-    cy.get(':nth-child(1) > [data-testid=picker-item] > .gPcPFP').click().then(() => {
-        cy.get('.Typography__H3-qw5r90-2').should('contain', 'Oops! Something went wrong')
-    }).then(() => {
-        cy.get('[data-testid=modal-close]').first().click()
-    })
-})
-
-//Command to validate deposit is not available and message displayed in modal and finally close modal - This works for all coins different to BTC
+//Command to validate deposit is not available and message displayed in modal and finally close modal
 Cypress.Commands.add("validateDepositOnCrypto", (money) => {
     cy.get('.styles__Value-wdzexi-0').should('contain', money).then(() => {
         cy.get('.bdGJMw > .Container__StyledContainer-sc-1nmtyg4-0 > :nth-child(1)').should('be.visible').click()
-    }).then(() => {
-        cy.get('.Typography__H3-qw5r90-2').should('contain', 'Oops! Something went wrong').then(() => {
-            cy.get('[data-testid=modal-close]').first().click()
-        })
+    })
+    cy.get(':nth-child(2) > [data-testid=picker-item] > .gPcPFP').then(($secondOption) => {
+        //sometimes two options are available on modal and other times the "oops!" modal is displayed immedeately, so we will try to validate both cases here:
+        if ($secondOption.is(':visible')) {
+            //if two options are present in modal, then we need to click on first element first before seeing the modal message
+            cy.get(':nth-child(1) > [data-testid=picker-item] > .gPcPFP').click().then(() => {
+                cy.get('.Typography__H3-qw5r90-2').should('contain', 'Oops! Something went wrong')    
+            }).then(() => {
+                cy.get('[data-testid=modal-close]').should('be.visible').then((button) => {
+                    Cypress.$(button).click();
+                })
+            })
+        }
+        //if no options are present in modal, then we only need to validate the message
+        else {
+            cy.get('.Typography__H3-qw5r90-2').should('contain', 'Oops! Something went wrong').then(() => {
+                cy.get('[data-testid=modal-close]').should('be.visible').then((button) => {
+                    Cypress.$(button).click();
+                })
+            })
+        }
     })
 })
 
@@ -129,3 +131,5 @@ Cypress.Commands.add("validateIncorrectPinMessage", () => {
     cy.get('.styles__Message-vmzast-2').should('contain', 'Incorrect PIN')
     cy.get('.styles__Button-vmzast-3').click()
 })
+
+

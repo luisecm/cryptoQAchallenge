@@ -1,6 +1,6 @@
-# Bitso QA Engineer Challenge
+# Login application
 
-This is a code challenge designed to apply to a QA position on Bitso. Code was done in NodeJS and using Cypress library to execute automated test cases
+This is a code challenge designed to practice the login process. Code was done in NodeJS and using Cypress library to execute automated test cases
 
 **Requirements**:
 * Node JS
